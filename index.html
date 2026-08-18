@@ -1,37 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Anonymous Token — Solana Presale</title>
-
-<meta
-  name="description"
-  content="Anonymous Token — a community-driven token built on Solana."
->
+<meta name="description" content="Anonymous Token — a community-driven token built on Solana.">
 
 <style>
 :root{
-  --black:#010302;
-  --black2:#040705;
-  --panel:#080d0a;
-  --panel2:#0b120e;
-
+  --bg:#020403;
+  --bg2:#050806;
+  --panel:rgba(8,14,10,.86);
+  --panel2:rgba(10,18,13,.94);
   --green:#00ff88;
   --green2:#00c96b;
-  --green3:#8affc6;
-  --green4:#c4ffdf;
-
+  --green3:#9dffca;
+  --green4:#d2ffe5;
   --white:#f5fff9;
   --text:#dce8e1;
-  --muted:#75837c;
-
-  --border:rgba(0,255,136,.14);
-  --border2:rgba(255,255,255,.07);
-
-  --danger:#ff526f;
-
+  --muted:#738078;
+  --line:rgba(255,255,255,.07);
+  --green-line:rgba(0,255,136,.16);
+  --danger:#ff5573;
   --max:1180px;
 }
 
@@ -46,6 +37,10 @@ html{
 }
 
 body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--white);
+  background:var(--bg);
   font-family:
     Inter,
     ui-sans-serif,
@@ -54,82 +49,6 @@ body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
-  background:
-    radial-gradient(
-      circle at 15% 5%,
-      rgba(0,255,136,.12),
-      transparent 27%
-    ),
-    radial-gradient(
-      circle at 90% 25%,
-      rgba(0,255,136,.055),
-      transparent 27%
-    ),
-    linear-gradient(
-      180deg,
-      #010302 0%,
-      #030604 48%,
-      #010201 100%
-    );
-
-  color:var(--white);
-
-  min-height:100vh;
-
-  overflow-x:hidden;
-}
-
-body::before{
-  content:"";
-
-  position:fixed;
-
-  inset:0;
-
-  pointer-events:none;
-
-  z-index:-5;
-
-  background-image:
-    linear-gradient(
-      rgba(0,255,136,.023) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,255,136,.023) 1px,
-      transparent 1px
-    );
-
-  background-size:
-    56px 56px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      black,
-      transparent 92%
-    );
-}
-
-body::after{
-  content:"";
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:-4;
-
-  pointer-events:none;
-
-  background:
-    radial-gradient(
-      circle at center,
-      transparent 40%,
-      rgba(0,0,0,.75) 100%
-    );
 }
 
 a{
@@ -143,33 +62,82 @@ input{
 }
 
 button{
-  -webkit-tap-highlight-color:transparent;
+  cursor:pointer;
 }
 
 .container{
-  width:
-    min(
-      var(--max),
-      calc(100% - 40px)
-    );
-
-  margin:auto;
+  width:min(
+    var(--max),
+    calc(100% - 40px)
+  );
+  margin:0 auto;
 }
 
 /* =========================================================
    BACKGROUND
 ========================================================= */
 
-#particles{
+.background-layer{
   position:fixed;
-
   inset:0;
-
+  z-index:0;
+  pointer-events:none;
   overflow:hidden;
 
-  pointer-events:none;
+  background:
+    radial-gradient(
+      circle at 14% 8%,
+      rgba(0,255,136,.12),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 88% 18%,
+      rgba(0,255,136,.055),
+      transparent 25%
+    ),
+    linear-gradient(
+      180deg,
+      #020403,
+      #030604 50%,
+      #010201
+    );
+}
 
-  z-index:-3;
+.background-grid{
+  position:absolute;
+  inset:0;
+  opacity:.5;
+
+  background-image:
+    linear-gradient(
+      rgba(0,255,136,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,255,136,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:56px 56px;
+}
+
+.background-vignette{
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 40%,
+      rgba(0,0,0,.72) 100%
+    );
+}
+
+#particles{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
 }
 
 .particle{
@@ -201,8 +169,13 @@ button{
   to{
     transform:
       translateY(-20vh)
-      translateX(80px);
+      translateX(70px);
   }
+}
+
+.page-shell{
+  position:relative;
+  z-index:1;
 }
 
 /* =========================================================
@@ -211,10 +184,8 @@ button{
 
 header{
   position:fixed;
-
   top:0;
   left:0;
-
   width:100%;
 
   z-index:1000;
@@ -224,19 +195,17 @@ header{
     rgba(255,255,255,.055);
 
   background:
-    rgba(1,3,2,.76);
+    rgba(2,4,3,.8);
 
   backdrop-filter:
-    blur(24px);
+    blur(22px);
 }
 
 .nav{
   height:82px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
   gap:18px;
@@ -244,14 +213,12 @@ header{
 
 .logo{
   display:flex;
-
   align-items:center;
 
   gap:12px;
 
-  font-weight:950;
-
   font-size:18px;
+  font-weight:950;
 
   letter-spacing:-.5px;
 }
@@ -261,29 +228,27 @@ header{
   height:42px;
 
   display:grid;
-
   place-items:center;
 
   border-radius:11px;
 
-  color:#001208;
+  color:#001309;
 
   font-weight:1000;
 
   background:
     linear-gradient(
       145deg,
-      #c4ffdf,
+      #cbffe2,
       var(--green),
-      #008d4c
+      #008b4b
     );
 
   box-shadow:
-    0 0 25px
-    rgba(0,255,136,.3);
+    0 0 28px
+    rgba(0,255,136,.28);
 
   position:relative;
-
   overflow:hidden;
 }
 
@@ -292,7 +257,7 @@ header{
 
   position:absolute;
 
-  width:60px;
+  width:70px;
   height:10px;
 
   background:
@@ -300,7 +265,7 @@ header{
 
   transform:
     rotate(-45deg)
-    translateX(-55px);
+    translateX(-60px);
 
   animation:
     logoShine
@@ -309,30 +274,28 @@ header{
 }
 
 @keyframes logoShine{
-  0%,65%{
+  0%,66%{
     transform:
       rotate(-45deg)
-      translateX(-60px);
+      translateX(-65px);
   }
 
-  90%,100%{
+  92%,100%{
     transform:
       rotate(-45deg)
-      translateX(75px);
+      translateX(80px);
   }
 }
 
 nav{
   display:flex;
-
-  gap:30px;
+  gap:28px;
 }
 
 nav a{
-  color:#89978f;
+  color:#88958e;
 
   font-size:13px;
-
   font-weight:700;
 
   transition:.2s;
@@ -344,48 +307,40 @@ nav a:hover{
 
 .nav-actions{
   display:flex;
-
   align-items:center;
-
   gap:9px;
 }
 
 .language{
-  padding:
-    10px 12px;
+  padding:10px 12px;
 
   border:
     1px solid
-    rgba(255,255,255,.08);
+    var(--line);
 
   border-radius:10px;
 
-  color:white;
+  color:#fff;
 
   background:
-    rgba(255,255,255,.03);
-
-  cursor:pointer;
+    rgba(255,255,255,.035);
 }
 
 .wallet-btn{
-  padding:
-    12px 18px;
+  padding:12px 18px;
 
   border:0;
 
   border-radius:11px;
 
-  cursor:pointer;
-
-  color:#001208;
+  color:#001309;
 
   font-weight:950;
 
   background:
     linear-gradient(
       135deg,
-      #c4ffdf,
+      #c6ffe0,
       var(--green)
     );
 
@@ -415,7 +370,6 @@ nav a:hover{
   padding-top:150px;
 
   display:flex;
-
   align-items:center;
 
   position:relative;
@@ -424,24 +378,22 @@ nav a:hover{
 }
 
 .hero-content{
-  width:100%;
-
   position:relative;
 
   z-index:3;
 
   text-align:center;
+
+  width:100%;
 }
 
 .eyebrow{
   display:inline-flex;
-
   align-items:center;
 
   gap:9px;
 
-  padding:
-    8px 14px;
+  padding:8px 14px;
 
   border:
     1px solid
@@ -449,18 +401,17 @@ nav a:hover{
 
   border-radius:999px;
 
-  color:#b4ffda;
-
   background:
     rgba(0,255,136,.04);
 
-  font-size:11px;
+  color:#b9ffda;
 
+  font-size:11px;
   font-weight:900;
 
-  text-transform:uppercase;
-
   letter-spacing:1.5px;
+
+  text-transform:uppercase;
 
   animation:
     fadeUp .7s ease both;
@@ -480,7 +431,9 @@ nav a:hover{
     var(--green);
 
   animation:
-    pulse 1.6s infinite;
+    pulse
+    1.6s
+    infinite;
 }
 
 @keyframes pulse{
@@ -498,8 +451,7 @@ nav a:hover{
 .hero h1{
   max-width:1050px;
 
-  margin:
-    30px auto 0;
+  margin:30px auto 0;
 
   font-size:
     clamp(
@@ -515,7 +467,8 @@ nav a:hover{
   font-weight:1000;
 
   animation:
-    fadeUp .9s ease both;
+    fadeUp
+    .9s ease both;
 }
 
 .hero h1 span{
@@ -526,14 +479,13 @@ nav a:hover{
   background:
     linear-gradient(
       90deg,
-      #f0fff6,
-      #9affc9 33%,
+      #f2fff7,
+      #a4ffcd 33%,
       var(--green) 72%,
-      #55ffac
+      #5affaf
     );
 
   -webkit-background-clip:text;
-
   background-clip:text;
 
   color:transparent;
@@ -544,27 +496,25 @@ nav a:hover{
 }
 
 .hero-description{
-  max-width:680px;
+  max-width:690px;
 
-  margin:
-    32px auto 0;
+  margin:32px auto 0;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:17px;
 
   line-height:1.8;
 
   animation:
-    fadeUp 1s ease both;
+    fadeUp
+    1s ease both;
 }
 
 .hero-buttons{
   margin-top:38px;
 
   display:flex;
-
   justify-content:center;
 
   gap:13px;
@@ -572,25 +522,23 @@ nav a:hover{
   flex-wrap:wrap;
 
   animation:
-    fadeUp 1.1s ease both;
+    fadeUp
+    1.1s ease both;
 }
 
 .primary-btn,
 .secondary-btn{
-  padding:
-    16px 26px;
+  padding:16px 26px;
 
   border-radius:13px;
 
   font-weight:950;
 
-  cursor:pointer;
-
   transition:.25s;
 }
 
 .primary-btn{
-  color:#001208;
+  color:#001309;
 
   background:
     linear-gradient(
@@ -618,10 +566,10 @@ nav a:hover{
 }
 
 .secondary-btn{
-  color:white;
+  color:#fff;
 
   background:
-    rgba(255,255,255,.03);
+    rgba(255,255,255,.035);
 
   border:
     1px solid
@@ -643,16 +591,16 @@ nav a:hover{
 .mask-stage{
   position:absolute;
 
+  left:50%;
+  top:51%;
+
   width:650px;
   height:650px;
-
-  left:50%;
-  top:52%;
 
   transform:
     translate(-50%,-50%);
 
-  z-index:-1;
+  z-index:1;
 
   pointer-events:none;
 }
@@ -706,11 +654,6 @@ nav a:hover{
 }
 
 @keyframes orbitRotate{
-  from{
-    transform:
-      rotate(0deg);
-  }
-
   to{
     transform:
       rotate(360deg);
@@ -729,12 +672,12 @@ nav a:hover{
   transform:
     translate(-50%,-50%);
 
-  opacity:.16;
+  opacity:.11;
 
   filter:
     drop-shadow(
       0 0 40px
-      rgba(0,255,136,.75)
+      rgba(0,255,136,.8)
     );
 
   animation:
@@ -745,15 +688,14 @@ nav a:hover{
 .mask-face{
   position:absolute;
 
-  inset:
-    18px 25px;
+  inset:18px 25px;
 
   background:
     linear-gradient(
       145deg,
       #d6ffe7,
-      rgba(76,255,157,.7) 42%,
-      rgba(0,255,136,.18)
+      rgba(76,255,157,.72) 42%,
+      rgba(0,255,136,.2)
     );
 
   clip-path:
@@ -865,7 +807,7 @@ nav a:hover{
 
   border:
     1px solid
-    rgba(0,255,136,.15);
+    var(--green-line);
 
   background:
     linear-gradient(
@@ -873,7 +815,7 @@ nav a:hover{
       rgba(0,255,136,.06),
       rgba(255,255,255,.017)
     ),
-    rgba(5,10,7,.9);
+    rgba(5,10,7,.92);
 
   backdrop-filter:
     blur(25px);
@@ -885,9 +827,7 @@ nav a:hover{
 
 .presale-top{
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
   gap:20px;
@@ -897,7 +837,6 @@ nav a:hover{
 
 .presale-title{
   font-size:24px;
-
   font-weight:950;
 }
 
@@ -912,7 +851,6 @@ nav a:hover{
 
 .live{
   display:flex;
-
   align-items:center;
 
   gap:8px;
@@ -929,15 +867,13 @@ nav a:hover{
 
 .progress-info{
   display:flex;
-
   justify-content:space-between;
 
   gap:15px;
 
   margin-bottom:10px;
 
-  color:
-    #839088;
+  color:#839088;
 
   font-size:12px;
 }
@@ -952,13 +888,10 @@ nav a:hover{
 
   background:
     rgba(255,255,255,.06);
-
-  position:relative;
 }
 
 .progress-bar{
   width:0%;
-
   height:100%;
 
   border-radius:inherit;
@@ -976,35 +909,10 @@ nav a:hover{
     rgba(0,255,136,.55);
 
   transition:
-    width .9s cubic-bezier(.2,.8,.2,1);
-
-  position:relative;
+    width .8s ease;
 }
 
-.progress-bar::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-
-  top:0;
-
-  width:80px;
-
-  height:100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.75)
-    );
-
-  opacity:.7;
-}
-
-.presale-live-stats{
+.live-stats{
   display:grid;
 
   grid-template-columns:
@@ -1015,7 +923,8 @@ nav a:hover{
   margin-top:18px;
 }
 
-.live-stat{
+.live-stat,
+.stat{
   padding:16px;
 
   border-radius:13px;
@@ -1028,25 +937,28 @@ nav a:hover{
     rgba(255,255,255,.055);
 }
 
-.live-stat span{
+.live-stat span,
+.stat span{
   display:block;
 
   margin-bottom:7px;
 
-  color:
-    #6e7b74;
+  color:#6e7b74;
 
   font-size:10px;
-
   font-weight:800;
 
   text-transform:uppercase;
 
-  letter-spacing:1.2px;
+  letter-spacing:1.1px;
 }
 
 .live-stat strong{
   font-size:18px;
+}
+
+.stat strong{
+  font-size:17px;
 }
 
 .presale-grid{
@@ -1060,53 +972,18 @@ nav a:hover{
   margin-top:20px;
 }
 
-.stat{
-  padding:17px;
-
-  border-radius:13px;
-
-  background:
-    rgba(255,255,255,.025);
-
-  border:
-    1px solid
-    rgba(255,255,255,.055);
-}
-
-.stat span{
-  display:block;
-
-  margin-bottom:7px;
-
-  color:
-    var(--muted);
-
-  font-size:10px;
-
-  font-weight:800;
-
-  text-transform:uppercase;
-
-  letter-spacing:1px;
-}
-
-.stat strong{
-  font-size:17px;
-}
-
 /* =========================================================
    SECTIONS
 ========================================================= */
 
 .content-section{
-  padding:
-    130px 0;
+  padding:130px 0;
 }
 
 .section-heading{
-  margin-bottom:55px;
-
   text-align:center;
+
+  margin-bottom:55px;
 }
 
 .section-heading > span{
@@ -1138,8 +1015,7 @@ nav a:hover{
 .section-heading p{
   max-width:650px;
 
-  margin:
-    18px auto 0;
+  margin:18px auto 0;
 
   color:
     var(--muted);
@@ -1215,8 +1091,7 @@ nav a:hover{
 
   gap:17px;
 
-  padding:
-    17px 0;
+  padding:17px 0;
 
   border-bottom:
     1px solid
@@ -1269,11 +1144,9 @@ nav a:hover{
   min-height:350px;
 
   display:flex;
-
   flex-direction:column;
 
   justify-content:center;
-
   align-items:center;
 
   text-align:center;
@@ -1292,12 +1165,11 @@ nav a:hover{
   background:
     linear-gradient(
       90deg,
-      white,
+      #fff,
       var(--green)
     );
 
   -webkit-background-clip:text;
-
   background-clip:text;
 
   color:transparent;
@@ -1333,9 +1205,7 @@ nav a:hover{
 
 .price-card{
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
 
   gap:15px;
@@ -1355,8 +1225,7 @@ nav a:hover{
 }
 
 .price-card span{
-  color:
-    #728078;
+  color:#728078;
 
   font-size:11px;
 
@@ -1376,22 +1245,18 @@ nav a:hover{
 
 .input-group label{
   display:flex;
-
   justify-content:space-between;
 
   margin-bottom:8px;
 
-  color:
-    #b7c3bc;
+  color:#b7c3bc;
 
   font-size:11px;
-
   font-weight:800;
 }
 
 .input-wrap{
   display:flex;
-
   align-items:center;
 
   overflow:hidden;
@@ -1430,10 +1295,9 @@ nav a:hover{
 
   outline:0;
 
-  color:white;
+  color:#fff;
 
-  background:
-    transparent;
+  background:transparent;
 
   font-size:18px;
 
@@ -1486,8 +1350,7 @@ nav a:hover{
 }
 
 .preview-row span{
-  color:
-    #69766f;
+  color:#69766f;
 }
 
 .preview-row strong{
@@ -1513,8 +1376,6 @@ nav a:hover{
 
   font-weight:1000;
 
-  cursor:pointer;
-
   background:
     linear-gradient(
       90deg,
@@ -1529,31 +1390,6 @@ nav a:hover{
   transition:.25s;
 }
 
-.buy-submit::after{
-  content:"";
-
-  position:absolute;
-
-  left:-60%;
-  top:0;
-
-  width:45%;
-  height:100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.7),
-      transparent
-    );
-
-  transform:
-    skewX(-20deg);
-
-  transition:.7s;
-}
-
 .buy-submit:hover{
   transform:
     translateY(-2px);
@@ -1561,10 +1397,6 @@ nav a:hover{
   box-shadow:
     0 20px 55px
     rgba(0,255,136,.29);
-}
-
-.buy-submit:hover::after{
-  left:120%;
 }
 
 .buy-submit:disabled{
@@ -1584,8 +1416,7 @@ nav a:hover{
 
   border-radius:12px;
 
-  color:
-    #b7ffda;
+  color:#b7ffda;
 
   background:
     rgba(0,255,136,.04);
@@ -1646,8 +1477,7 @@ nav a:hover{
 }
 
 .roadmap-card h3{
-  margin:
-    12px 0;
+  margin:12px 0;
 
   font-size:25px;
 }
@@ -1666,11 +1496,9 @@ nav a:hover{
 }
 
 .roadmap-card li{
-  margin:
-    10px 0;
+  margin:10px 0;
 
-  color:
-    #c8d4ce;
+  color:#c8d4ce;
 
   font-size:13px;
 }
@@ -1738,5 +1566,3089 @@ details p{
 }
 
 /* =========================================================
-   FOOTER / SOCIAL
-==================================================
+   FOOTER
+========================================================= */
+
+footer{
+  padding:50px 0;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+
+  color:
+    var(--muted);
+
+  font-size:13px;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:25px;
+}
+
+.socials{
+  display:flex;
+
+  gap:11px;
+
+  flex-wrap:wrap;
+}
+
+.social-link{
+  position:relative;
+
+  padding:10px 16px;
+
+  border:
+    1px solid
+    rgba(0,255,136,.23);
+
+  border-radius:10px;
+
+  color:#b9ffda;
+
+  background:
+    rgba(0,255,136,.025);
+
+  font-size:12px;
+
+  font-weight:850;
+
+  box-shadow:
+    inset 0 0 18px
+    rgba(0,255,136,.025);
+
+  transition:.25s;
+}
+
+.social-link:hover{
+  color:#fff;
+
+  border-color:
+    rgba(0,255,136,.7);
+
+  background:
+    rgba(0,255,136,.07);
+
+  transform:
+    translateY(-2px);
+
+  text-shadow:
+    0 0 12px
+    rgba(0,255,136,.8);
+
+  box-shadow:
+    0 0 24px
+    rgba(0,255,136,.18);
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal,
+.tx-modal{
+  position:fixed;
+
+  inset:0;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    rgba(0,0,0,.82);
+
+  backdrop-filter:
+    blur(15px);
+
+  z-index:5000;
+}
+
+.tx-modal{
+  z-index:6000;
+}
+
+.modal.active,
+.tx-modal.active{
+  display:flex;
+}
+
+.modal-box,
+.tx-box{
+  width:min(
+    450px,
+    100%
+  );
+
+  padding:29px;
+
+  border:
+    1px solid
+    rgba(0,255,136,.15);
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0b110e,
+      #040705
+    );
+
+  box-shadow:
+    0 45px 130px
+    rgba(0,0,0,.8);
+
+  animation:
+    modalOpen
+    .22s ease both;
+}
+
+@keyframes modalOpen{
+  from{
+    opacity:0;
+
+    transform:
+      translateY(12px)
+      scale(.98);
+  }
+
+  to{
+    opacity:1;
+
+    transform:none;
+  }
+}
+
+.modal-box h3,
+.tx-box h3{
+  margin-bottom:8px;
+
+  font-size:25px;
+}
+
+.modal-description,
+.tx-box p{
+  color:
+    var(--muted);
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+.modal-description{
+  margin-bottom:20px;
+}
+
+.wallet-options{
+  display:grid;
+
+  gap:10px;
+}
+
+.wallet-option{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:13px;
+
+  padding:15px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.075);
+
+  border-radius:13px;
+
+  color:#fff;
+
+  background:
+    rgba(255,255,255,.025);
+
+  text-align:left;
+
+  transition:.2s;
+}
+
+.wallet-option:hover{
+  border-color:
+    rgba(0,255,136,.35);
+
+  background:
+    rgba(0,255,136,.045);
+
+  transform:
+    translateY(-1px);
+}
+
+.wallet-icon{
+  width:39px;
+  height:39px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:10px;
+
+  color:
+    var(--green);
+
+  background:
+    rgba(0,255,136,.08);
+
+  font-weight:1000;
+}
+
+.wallet-option strong{
+  display:block;
+}
+
+.wallet-option small{
+  color:
+    var(--muted);
+}
+
+.wallet-availability{
+  margin-top:15px;
+
+  padding:11px;
+
+  border-radius:10px;
+
+  color:#66736c;
+
+  background:
+    rgba(255,255,255,.022);
+
+  font-size:11px;
+
+  line-height:1.55;
+}
+
+.close-modal{
+  width:100%;
+
+  margin-top:12px;
+
+  padding:13px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:11px;
+
+  color:#fff;
+
+  background:
+    rgba(255,255,255,.03);
+}
+
+.tx-box{
+  text-align:center;
+}
+
+.spinner{
+  width:55px;
+  height:55px;
+
+  margin:0 auto 20px;
+
+  border:
+    2px solid
+    rgba(255,255,255,.08);
+
+  border-top-color:
+    var(--green);
+
+  border-radius:50%;
+
+  animation:
+    spin
+    .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:
+      rotate(360deg);
+  }
+}
+
+.success-icon{
+  width:55px;
+  height:55px;
+
+  margin:0 auto 20px;
+
+  display:none;
+  place-items:center;
+
+  border-radius:50%;
+
+  color:#001208;
+
+  background:
+    var(--green);
+
+  box-shadow:
+    0 0 35px
+    rgba(0,255,136,.35);
+
+  font-size:25px;
+
+  font-weight:1000;
+}
+
+.success-icon.show{
+  display:grid;
+}
+
+.tx-details{
+  margin-top:15px;
+
+  padding:13px;
+
+  border-radius:11px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  text-align:left;
+
+  font-size:11px;
+}
+
+.tx-details div{
+  display:flex;
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin:7px 0;
+}
+
+.tx-details span{
+  color:#65736b;
+}
+
+.tx-details strong{
+  max-width:260px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+  text-align:right;
+}
+
+.explorer-link{
+  display:none;
+
+  margin-top:18px;
+
+  padding:13px;
+
+  border-radius:11px;
+
+  color:#001208;
+
+  background:
+    var(--green);
+
+  font-weight:950;
+}
+
+.explorer-link.show{
+  display:block;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:850px){
+
+  nav{
+    display:none;
+  }
+
+  .hero{
+    min-height:760px;
+  }
+
+  .mask-stage{
+    width:460px;
+    height:460px;
+  }
+
+  .presale-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .live-stats{
+    grid-template-columns:1fr;
+  }
+
+  .tokenomics-grid,
+  .roadmap{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .container{
+    width:
+      calc(100% - 26px);
+  }
+
+  .nav{
+    height:70px;
+  }
+
+  .logo{
+    font-size:14px;
+  }
+
+  .logo-mark{
+    width:34px;
+    height:34px;
+  }
+
+  .language{
+    display:none;
+  }
+
+  .wallet-btn{
+    padding:9px 12px;
+    font-size:11px;
+  }
+
+  .hero{
+    min-height:700px;
+    padding-top:125px;
+  }
+
+  .hero h1{
+    font-size:50px;
+    letter-spacing:-4px;
+  }
+
+  .hero-description{
+    font-size:14px;
+  }
+
+  .mask-stage{
+    width:330px;
+    height:330px;
+  }
+
+  .mask{
+    transform:
+      translate(-50%,-50%)
+      scale(.72);
+  }
+
+  .presale-wrap{
+    margin-top:-20px;
+  }
+
+  .presale{
+    padding:21px;
+  }
+
+  .presale-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .presale-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .content-section{
+    padding:90px 0;
+  }
+
+  .glass-card{
+    padding:22px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .socials{
+    justify-content:center;
+  }
+
+  .progress-info{
+    flex-direction:column;
+    gap:5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-layer">
+  <div class="background-grid"></div>
+  <div id="particles"></div>
+  <div class="background-vignette"></div>
+</div>
+
+<div class="page-shell">
+
+<header>
+  <div class="container nav">
+
+    <a
+      href="#home"
+      class="logo"
+    >
+      <span class="logo-mark">
+        A
+      </span>
+
+      <span>
+        Anonymous Token
+      </span>
+    </a>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#presale">Presale</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#buy">Buy</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+
+      <button
+        class="language"
+        id="languageBtn"
+        type="button"
+      >
+        EN
+      </button>
+
+      <button
+        class="wallet-btn"
+        id="headerWalletButton"
+        type="button"
+      >
+        Connect Wallet
+      </button>
+
+    </div>
+
+  </div>
+</header>
+
+<main id="home">
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+  <div class="mask-stage">
+
+    <div class="orbit"></div>
+
+    <div class="mask">
+      <div class="mask-face"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mask-mouth"></div>
+    </div>
+
+  </div>
+
+  <div class="container hero-content">
+
+    <div class="eyebrow">
+
+      <span class="status-dot"></span>
+
+      Anonymous Token · Solana
+
+    </div>
+
+    <h1>
+
+      <span>
+        ENTER THE
+      </span>
+
+      <span class="green-text">
+        ANONYMOUS
+      </span>
+
+      <span>
+        NETWORK
+      </span>
+
+    </h1>
+
+    <p class="hero-description">
+
+      A community-driven token built on Solana.
+      40% of the total supply is allocated to the
+      public presale with a fixed target of 10,000 SOL.
+
+    </p>
+
+    <div class="hero-buttons">
+
+      <a
+        href="#buy"
+        class="primary-btn"
+      >
+        Buy $ANON
+      </a>
+
+      <button
+        class="secondary-btn"
+        id="heroConnectButton"
+        type="button"
+      >
+        Connect Wallet
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ======================================================
+     PRESALE
+====================================================== -->
+
+<section
+  class="presale-wrap"
+  id="presale"
+>
+
+  <div class="container">
+
+    <div class="presale">
+
+      <div class="presale-top">
+
+        <div>
+
+          <div class="presale-title">
+            Anonymous Token Presale
+          </div>
+
+          <div class="presale-subtitle">
+            Live presale progress.
+          </div>
+
+        </div>
+
+        <div class="live">
+
+          <span class="status-dot"></span>
+
+          PRESALE LIVE
+
+        </div>
+
+      </div>
+
+      <div class="progress-info">
+
+        <span id="raisedText">
+          Raised: 0.000 SOL
+        </span>
+
+        <span id="progressText">
+          0.000% of 10,000 SOL
+        </span>
+
+      </div>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar"
+          id="presaleProgressBar"
+        ></div>
+
+      </div>
+
+      <div class="live-stats">
+
+        <div class="live-stat">
+
+          <span>
+            SOL Raised
+          </span>
+
+          <strong id="raisedSol">
+            0.000
+          </strong>
+
+        </div>
+
+        <div class="live-stat">
+
+          <span>
+            $ANON Sold
+          </span>
+
+          <strong id="tokensSold">
+            0
+          </strong>
+
+        </div>
+
+        <div class="live-stat">
+
+          <span>
+            Presale Progress
+          </span>
+
+          <strong id="presalePercent">
+            0.000%
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="presale-grid">
+
+        <div class="stat">
+          <span>Total Supply</span>
+          <strong>10B $ANON</strong>
+        </div>
+
+        <div class="stat">
+          <span>Presale Supply</span>
+          <strong>4B $ANON</strong>
+        </div>
+
+        <div class="stat">
+          <span>Presale Target</span>
+          <strong>10,000 SOL</strong>
+        </div>
+
+        <div class="stat">
+          <span>Rate</span>
+          <strong>400K / SOL</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ======================================================
+     TOKENOMICS
+====================================================== -->
+
+<section
+  class="content-section"
+  id="tokenomics"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>
+        Tokenomics
+      </span>
+
+      <h2>
+        Built for the community.
+      </h2>
+
+      <p>
+        10 billion total supply with 40% allocated
+        to the public presale.
+      </p>
+
+    </div>
+
+    <div class="tokenomics-grid">
+
+      <div class="glass-card">
+
+        <div class="allocation">
+
+          <div class="allocation-dot"></div>
+
+          <div class="allocation-name">
+            <strong>Presale</strong>
+            <small>Public allocation</small>
+          </div>
+
+          <div class="allocation-percent">
+            40%
+          </div>
+
+        </div>
+
+        <div class="allocation">
+
+          <div class="allocation-dot"></div>
+
+          <div class="allocation-name">
+            <strong>Marketing</strong>
+            <small>Growth campaigns</small>
+          </div>
+
+          <div class="allocation-percent">
+            10%
+          </div>
+
+        </div>
+
+        <div class="allocation">
+
+          <div class="allocation-dot"></div>
+
+          <div class="allocation-name">
+            <strong>Team</strong>
+            <small>Development and operations</small>
+          </div>
+
+          <div class="allocation-percent">
+            15%
+          </div>
+
+        </div>
+
+        <div class="allocation">
+
+          <div class="allocation-dot"></div>
+
+          <div class="allocation-name">
+            <strong>Liquidity</strong>
+            <small>DEX liquidity</small>
+          </div>
+
+          <div class="allocation-percent">
+            15%
+          </div>
+
+        </div>
+
+        <div class="allocation">
+
+          <div class="allocation-dot"></div>
+
+          <div class="allocation-name">
+            <strong>Community & Ecosystem</strong>
+            <small>Rewards and future initiatives</small>
+          </div>
+
+          <div class="allocation-percent">
+            20%
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="glass-card supply">
+
+        <div class="supply-number">
+          10B
+        </div>
+
+        <div class="supply-label">
+          Total $ANON Supply
+        </div>
+
+        <div
+          style="
+            margin-top:25px;
+            color:#65736b;
+            font-size:12px;
+          "
+        >
+          4,000,000,000 $ANON PRESALE
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ======================================================
+     BUY
+====================================================== -->
+
+<section
+  class="content-section"
+  id="buy"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>
+        Presale
+      </span>
+
+      <h2>
+        Buy $ANON.
+      </h2>
+
+      <p>
+        Enter SOL and your estimated $ANON allocation
+        is calculated instantly.
+      </p>
+
+    </div>
+
+    <div class="buy-section">
+
+      <div class="glass-card buy-box">
+
+        <h3>
+          Anonymous Presale
+        </h3>
+
+        <p>
+          Pay with SOL through your connected wallet.
+        </p>
+
+        <div class="price-card">
+
+          <span>
+            Fixed Presale Rate
+          </span>
+
+          <strong>
+            1 SOL = 400,000 $ANON
+          </strong>
+
+        </div>
+
+        <div class="input-group">
+
+          <label>
+
+            <span>
+              YOU PAY
+            </span>
+
+            <span>
+              SOL
+            </span>
+
+          </label>
+
+          <div class="input-wrap">
+
+            <input
+              id="solAmount"
+              type="number"
+              min="0.001"
+              step="0.001"
+              inputmode="decimal"
+              autocomplete="off"
+              placeholder="0.00"
+            >
+
+            <div class="input-symbol">
+              SOL
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="input-group">
+
+          <label>
+
+            <span>
+              YOU RECEIVE
+            </span>
+
+            <span>
+              $ANON
+            </span>
+
+          </label>
+
+          <div class="input-wrap">
+
+            <input
+              id="tokenAmount"
+              type="text"
+              value="0"
+              readonly
+            >
+
+            <div class="input-symbol">
+              $ANON
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="purchase-preview">
+
+          <div class="preview-row">
+
+            <span>
+              Rate
+            </span>
+
+            <strong>
+              400,000 $ANON / SOL
+            </strong>
+
+          </div>
+
+          <div class="preview-row">
+
+            <span>
+              Presale allocation
+            </span>
+
+            <strong>
+              4,000,000,000 $ANON
+            </strong>
+
+          </div>
+
+          <div class="preview-row">
+
+            <span>
+              Target
+            </span>
+
+            <strong>
+              10,000 SOL
+            </strong>
+
+          </div>
+
+        </div>
+
+        <button
+          id="buyButton"
+          class="buy-submit"
+          type="button"
+        >
+          Connect Wallet & Buy
+        </button>
+
+        <div
+          id="walletStatus"
+          class="wallet-status"
+        ></div>
+
+        <p
+          style="
+            margin-top:15px;
+            margin-bottom:0;
+            color:#64736b;
+            font-size:11px;
+            line-height:1.6;
+            text-align:center;
+          "
+        >
+          Your wallet will show the recipient and payment
+          amount before approval. $ANON distribution is
+          handled manually after confirmed payment verification.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ======================================================
+     ROADMAP
+====================================================== -->
+
+<section
+  class="content-section"
+  id="roadmap"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>
+        Roadmap
+      </span>
+
+      <h2>
+        Built without noise.
+      </h2>
+
+      <p>
+        Focused phases for launch,
+        community growth and ecosystem development.
+      </p>
+
+    </div>
+
+    <div class="roadmap">
+
+      <div class="glass-card roadmap-card">
+
+        <div class="phase">
+          Phase 01
+        </div>
+
+        <h3>
+          Launch
+        </h3>
+
+        <p>
+          Establish the Anonymous foundation
+          and open the community.
+        </p>
+
+        <ul>
+          <li>Website launch</li>
+          <li>Public presale</li>
+          <li>Community channels</li>
+          <li>Social launch</li>
+        </ul>
+
+      </div>
+
+      <div class="glass-card roadmap-card">
+
+        <div class="phase">
+          Phase 02
+        </div>
+
+        <h3>
+          Expansion
+        </h3>
+
+        <p>
+          Grow the community and establish
+          the token ecosystem.
+        </p>
+
+        <ul>
+          <li>DEX liquidity</li>
+          <li>Community campaigns</li>
+          <li>Partnerships</li>
+          <li>Exchange applications</li>
+        </ul>
+
+      </div>
+
+      <div class="glass-card roadmap-card">
+
+        <div class="phase">
+          Phase 03
+        </div>
+
+        <h3>
+          Ecosystem
+        </h3>
+
+        <p>
+          Introduce new utilities and long-term
+          community initiatives.
+        </p>
+
+        <ul>
+          <li>Community rewards</li>
+          <li>Ecosystem features</li>
+          <li>Strategic partnerships</li>
+          <li>Global expansion</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ======================================================
+     FAQ
+====================================================== -->
+
+<section
+  class="content-section"
+  id="faq"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>
+        FAQ
+      </span>
+
+      <h2>
+        Frequently asked questions.
+      </h2>
+
+    </div>
+
+    <div class="faq">
+
+      <details>
+
+        <summary>
+          What is the presale rate?
+        </summary>
+
+        <p>
+          The configured presale rate is
+          400,000 $ANON for every 1 SOL.
+        </p>
+
+      </details>
+
+      <details>
+
+        <summary>
+          How large is the presale?
+        </summary>
+
+        <p>
+          4 billion $ANON, equal to 40% of the
+          10 billion total supply, are allocated
+          to the presale.
+        </p>
+
+      </details>
+
+      <details>
+
+        <summary>
+          What is the presale target?
+        </summary>
+
+        <p>
+          The full presale allocation corresponds
+          to a target of 10,000 SOL.
+        </p>
+
+      </details>
+
+      <details>
+
+        <summary>
+          How is progress calculated?
+        </summary>
+
+        <p>
+          The progress bar uses the global amount
+          returned by the presale statistics API.
+          10,000 SOL equals 100% of the presale.
+        </p>
+
+      </details>
+
+      <details>
+
+        <summary>
+          Which wallets are supported?
+        </summary>
+
+        <p>
+          Phantom works when its Solana provider
+          is available. Trust Wallet and MetaMask
+          are detected only when the wallet environment
+          exposes a compatible Solana provider.
+        </p>
+
+      </details>
+
+      <details>
+
+        <summary>
+          When will I receive $ANON?
+        </summary>
+
+        <p>
+          In this version payment is verified on-chain
+          and token distribution is performed manually.
+        </p>
+
+      </details>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      © 2026 Anonymous Token.
+      All rights reserved.
+    </div>
+
+    <div class="socials">
+
+      <a
+        href="#"
+        class="social-link"
+        aria-label="Telegram"
+      >
+        ◈ Telegram
+      </a>
+
+      <a
+        href="#"
+        class="social-link"
+        aria-label="X"
+      >
+        ✕ X
+      </a>
+
+      <a
+        href="#"
+        class="social-link"
+        aria-label="Discord"
+      >
+        ◇ Discord
+      </a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+</div>
+
+<!-- ======================================================
+     WALLET MODAL
+====================================================== -->
+
+<div
+  class="modal"
+  id="walletModal"
+>
+
+  <div class="modal-box">
+
+    <h3>
+      Connect Wallet
+    </h3>
+
+    <p class="modal-description">
+      Select a Solana-compatible wallet.
+    </p>
+
+    <div class="wallet-options">
+
+      <button
+        class="wallet-option"
+        data-wallet="phantom"
+        type="button"
+      >
+
+        <div class="wallet-icon">
+          P
+        </div>
+
+        <div>
+          <strong>Phantom</strong>
+          <small>Solana Wallet</small>
+        </div>
+
+      </button>
+
+      <button
+        class="wallet-option"
+        data-wallet="trust"
+        type="button"
+      >
+
+        <div class="wallet-icon">
+          T
+        </div>
+
+        <div>
+          <strong>Trust Wallet</strong>
+          <small>Solana provider if available</small>
+        </div>
+
+      </button>
+
+      <button
+        class="wallet-option"
+        data-wallet="metamask"
+        type="button"
+      >
+
+        <div class="wallet-icon">
+          M
+        </div>
+
+        <div>
+          <strong>MetaMask</strong>
+          <small>Solana provider if available</small>
+        </div>
+
+      </button>
+
+    </div>
+
+    <div
+      class="wallet-availability"
+      id="walletAvailability"
+    >
+      Checking available wallets…
+    </div>
+
+    <button
+      class="close-modal"
+      id="closeWalletButton"
+      type="button"
+    >
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ======================================================
+     TRANSACTION MODAL
+====================================================== -->
+
+<div
+  class="tx-modal"
+  id="txModal"
+>
+
+  <div class="tx-box">
+
+    <div
+      class="spinner"
+      id="txSpinner"
+    ></div>
+
+    <div
+      class="success-icon"
+      id="successIcon"
+    >
+      ✓
+    </div>
+
+    <h3 id="txTitle">
+      Preparing transaction
+    </h3>
+
+    <p id="txMessage">
+      Preparing your Solana transaction…
+    </p>
+
+    <div
+      class="tx-details"
+      id="txDetails"
+      style="display:none"
+    >
+
+      <div>
+        <span>Amount</span>
+        <strong id="txSolAmount">—</strong>
+      </div>
+
+      <div>
+        <span>Expected $ANON</span>
+        <strong id="txTokenAmount">—</strong>
+      </div>
+
+      <div>
+        <span>Recipient</span>
+        <strong id="txRecipient">—</strong>
+      </div>
+
+    </div>
+
+    <a
+      id="explorerLink"
+      class="explorer-link"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View on Solana Explorer
+    </a>
+
+    <button
+      id="txClose"
+      class="close-modal"
+      type="button"
+      style="display:none"
+    >
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ======================================================
+     SOLANA WEB3
+====================================================== -->
+
+<script
+  src="https://unpkg.com/@solana/web3.js@1.98.4/lib/index.iife.min.js"
+></script>
+
+<script>
+"use strict";
+
+/* =========================================================
+   ECONOMICS
+========================================================= */
+
+const PRESALE_TOKEN_ALLOCATION =
+  4_000_000_000;
+
+const PRESALE_TARGET_SOL =
+  10_000;
+
+/*
+  4,000,000,000 ANON / 10,000 SOL
+  = 400,000 ANON per SOL
+*/
+const TOKENS_PER_SOL =
+  PRESALE_TOKEN_ALLOCATION /
+  PRESALE_TARGET_SOL;
+
+/*
+  One ANON costs:
+  1 / 400,000 = 0.0000025 SOL
+*/
+const TOKEN_PRICE_SOL =
+  1 / TOKENS_PER_SOL;
+
+/* =========================================================
+   PAYMENT CONFIGURATION
+========================================================= */
+
+const RECIPIENT_ADDRESS =
+  "CdqCxBeKjwmAfdiFkAVTTqCvnrV3jK8xyzbmzks6eGuF";
+
+const RPC_ENDPOINT =
+  "https://api.mainnet-beta.solana.com";
+
+/*
+  Optional backend endpoint for GLOBAL progress.
+
+  Expected response:
+  {
+    "raisedSol": 125.75
+  }
+
+  If it doesn't exist, the site DOES NOT crash.
+  Presale progress simply stays at zero.
+*/
+const PRESALE_STATS_URL =
+  "/api/presale-stats";
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let connection =
+  null;
+
+let connectedProvider =
+  null;
+
+let connectedPublicKey =
+  null;
+
+let selectedWallet =
+  null;
+
+let transactionInProgress =
+  false;
+
+const $ =
+  id =>
+    document.getElementById(id);
+
+/* =========================================================
+   SAFE SOLANA INITIALIZATION
+========================================================= */
+
+function web3Ready(){
+
+  return !!(
+    window.solanaWeb3 &&
+    window.solanaWeb3.Connection &&
+    window.solanaWeb3.PublicKey &&
+    window.solanaWeb3.Transaction &&
+    window.solanaWeb3.SystemProgram
+  );
+}
+
+function ensureConnection(){
+
+  if(
+    !web3Ready()
+  ){
+    return false;
+  }
+
+  if(
+    !connection
+  ){
+
+    try{
+
+      connection =
+        new window.solanaWeb3.Connection(
+          RPC_ENDPOINT,
+          "confirmed"
+        );
+
+    }catch(error){
+
+      console.error(
+        "Solana connection init failed:",
+        error
+      );
+
+      connection =
+        null;
+
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/* =========================================================
+   SOL -> ANON CALCULATOR
+========================================================= */
+
+function updatePurchaseCalculation(){
+
+  const input =
+    $("solAmount");
+
+  const output =
+    $("tokenAmount");
+
+  const sol =
+    Number(
+      input.value
+    );
+
+  if(
+    !Number.isFinite(sol) ||
+    sol <= 0
+  ){
+
+    output.value =
+      "0";
+
+    return;
+  }
+
+  const tokens =
+    sol *
+    TOKENS_PER_SOL;
+
+  output.value =
+    Math
+      .floor(tokens)
+      .toLocaleString(
+        "en-US"
+      );
+}
+
+/* =========================================================
+   PRESALE PROGRESS
+========================================================= */
+
+function renderProgress(
+  raisedSol
+){
+
+  const raised =
+    Math.max(
+      0,
+      Math.min(
+        PRESALE_TARGET_SOL,
+        Number(raisedSol) || 0
+      )
+    );
+
+  const progress =
+    Math.min(
+      100,
+      (
+        raised /
+        PRESALE_TARGET_SOL
+      ) * 100
+    );
+
+  const sold =
+    Math.min(
+      PRESALE_TOKEN_ALLOCATION,
+      raised *
+      TOKENS_PER_SOL
+    );
+
+  $("raisedSol").textContent =
+    raised.toLocaleString(
+      "en-US",
+      {
+        minimumFractionDigits:3,
+        maximumFractionDigits:3
+      }
+    );
+
+  $("tokensSold").textContent =
+    Math
+      .floor(sold)
+      .toLocaleString(
+        "en-US"
+      );
+
+  $("presalePercent").textContent =
+    progress.toFixed(3) +
+    "%";
+
+  $("raisedText").textContent =
+    "Raised: " +
+    raised.toLocaleString(
+      "en-US",
+      {
+        maximumFractionDigits:3
+      }
+    ) +
+    " SOL";
+
+  $("progressText").textContent =
+    progress.toFixed(3) +
+    "% of 10,000 SOL";
+
+  $("presaleProgressBar")
+    .style
+    .width =
+      progress +
+      "%";
+}
+
+async function loadPresaleStats(){
+
+  try{
+
+    const controller =
+      new AbortController();
+
+    const timeout =
+      setTimeout(
+        () =>
+          controller.abort(),
+        4000
+      );
+
+    const response =
+      await fetch(
+        PRESALE_STATS_URL,
+        {
+          cache:"no-store",
+
+          signal:
+            controller.signal,
+
+          headers:{
+            "Accept":
+              "application/json"
+          }
+        }
+      );
+
+    clearTimeout(
+      timeout
+    );
+
+    if(
+      !response.ok
+    ){
+      return;
+    }
+
+    const data =
+      await response.json();
+
+    if(
+      data &&
+      Number.isFinite(
+        Number(
+          data.raisedSol
+        )
+      )
+    ){
+
+      renderProgress(
+        Number(
+          data.raisedSol
+        )
+      );
+    }
+
+  }catch(error){
+
+    /*
+      Backend missing?
+      No problem.
+
+      Page stays fully visible and functional.
+    */
+
+    console.debug(
+      "Presale stats unavailable:",
+      error?.message ||
+      error
+    );
+  }
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openWalletModal(){
+
+  updateWalletAvailability();
+
+  $("walletModal")
+    .classList
+    .add(
+      "active"
+    );
+}
+
+function closeWalletModal(){
+
+  $("walletModal")
+    .classList
+    .remove(
+      "active"
+    );
+}
+
+function openTxModal(){
+
+  $("txModal")
+    .classList
+    .add(
+      "active"
+    );
+}
+
+function closeTxModal(){
+
+  $("txModal")
+    .classList
+    .remove(
+      "active"
+    );
+}
+
+function resetTxModal(){
+
+  $("txSpinner")
+    .style
+    .display =
+      "block";
+
+  $("successIcon")
+    .classList
+    .remove(
+      "show"
+    );
+
+  $("explorerLink")
+    .classList
+    .remove(
+      "show"
+    );
+
+  $("explorerLink")
+    .removeAttribute(
+      "href"
+    );
+
+  $("txClose")
+    .style
+    .display =
+      "none";
+
+  $("txDetails")
+    .style
+    .display =
+      "none";
+
+  $("txTitle")
+    .textContent =
+      "Preparing transaction";
+
+  $("txMessage")
+    .textContent =
+      "Preparing your Solana transaction…";
+}
+
+/* =========================================================
+   WALLET DETECTION
+========================================================= */
+
+function getPhantomProvider(){
+
+  if(
+    window.phantom?.solana
+  ){
+
+    return window
+      .phantom
+      .solana;
+  }
+
+  if(
+    window.solana?.isPhantom
+  ){
+
+    return window.solana;
+  }
+
+  return null;
+}
+
+function getTrustProvider(){
+
+  if(
+    window.trustwallet?.solana
+  ){
+
+    return window
+      .trustwallet
+      .solana;
+  }
+
+  if(
+    window.trustWallet?.solana
+  ){
+
+    return window
+      .trustWallet
+      .solana;
+  }
+
+  return null;
+}
+
+function getMetaMaskProvider(){
+
+  /*
+    Do not treat normal EVM window.ethereum
+    as a Solana provider.
+  */
+
+  if(
+    window.metamask?.solana
+  ){
+
+    return window
+      .metamask
+      .solana;
+  }
+
+  if(
+    window.metaMask?.solana
+  ){
+
+    return window
+      .metaMask
+      .solana;
+  }
+
+  return null;
+}
+
+function getProvider(
+  type
+){
+
+  if(
+    type ===
+    "phantom"
+  ){
+
+    return getPhantomProvider();
+  }
+
+  if(
+    type ===
+    "trust"
+  ){
+
+    return getTrustProvider();
+  }
+
+  if(
+    type ===
+    "metamask"
+  ){
+
+    return getMetaMaskProvider();
+  }
+
+  return null;
+}
+
+function walletName(
+  type
+){
+
+  if(
+    type ===
+    "phantom"
+  ){
+    return "Phantom";
+  }
+
+  if(
+    type ===
+    "trust"
+  ){
+    return "Trust Wallet";
+  }
+
+  if(
+    type ===
+    "metamask"
+  ){
+    return "MetaMask";
+  }
+
+  return "Wallet";
+}
+
+function updateWalletAvailability(){
+
+  const states = {
+
+    phantom:
+      !!getPhantomProvider(),
+
+    trust:
+      !!getTrustProvider(),
+
+    metamask:
+      !!getMetaMaskProvider()
+  };
+
+  $("walletAvailability")
+    .textContent =
+
+      "Phantom: " +
+      (
+        states.phantom
+          ? "available"
+          : "not detected"
+      ) +
+
+      " · Trust: " +
+      (
+        states.trust
+          ? "available"
+          : "not detected"
+      ) +
+
+      " · MetaMask: " +
+      (
+        states.metamask
+          ? "available"
+          : "not detected"
+      );
+
+  document
+    .querySelectorAll(
+      ".wallet-option"
+    )
+    .forEach(
+      button => {
+
+        const available =
+          states[
+            button.dataset.wallet
+          ];
+
+        button.style.opacity =
+          available
+            ? "1"
+            : ".55";
+      }
+    );
+}
+
+/* =========================================================
+   WALLET UI
+========================================================= */
+
+function shortAddress(
+  address
+){
+
+  return (
+    address.slice(0,5) +
+    "…" +
+    address.slice(-5)
+  );
+}
+
+function setWalletStatus(
+  message,
+  isError = false
+){
+
+  const element =
+    $("walletStatus");
+
+  element.textContent =
+    message;
+
+  element.classList.add(
+    "show"
+  );
+
+  element.classList.toggle(
+    "error",
+    isError
+  );
+}
+
+/* =========================================================
+   CONNECT WALLET
+========================================================= */
+
+async function connectWallet(
+  type
+){
+
+  try{
+
+    if(
+      !web3Ready()
+    ){
+
+      throw new Error(
+        "Solana Web3 did not load. The page is working, but wallet transactions are temporarily unavailable."
+      );
+    }
+
+    const provider =
+      getProvider(
+        type
+      );
+
+    if(
+      !provider
+    ){
+
+      throw new Error(
+        walletName(type) +
+        " does not expose a compatible Solana provider in this browser."
+      );
+    }
+
+    if(
+      typeof provider.connect !==
+      "function"
+    ){
+
+      throw new Error(
+        walletName(type) +
+        " does not provide a compatible connect method."
+      );
+    }
+
+    closeWalletModal();
+
+    setWalletStatus(
+      "Connecting to " +
+      walletName(type) +
+      "…"
+    );
+
+    const result =
+      await provider.connect();
+
+    const key =
+      result?.publicKey ||
+      provider.publicKey;
+
+    if(
+      !key
+    ){
+
+      throw new Error(
+        "Wallet connected but no Solana address was returned."
+      );
+    }
+
+    connectedPublicKey =
+      new window
+        .solanaWeb3
+        .PublicKey(
+          key.toString()
+        );
+
+    connectedProvider =
+      provider;
+
+    selectedWallet =
+      type;
+
+    const short =
+      shortAddress(
+        connectedPublicKey
+          .toString()
+      );
+
+    $("headerWalletButton")
+      .textContent =
+        short;
+
+    $("heroConnectButton")
+      .textContent =
+        "Wallet Connected";
+
+    $("buyButton")
+      .textContent =
+        "Buy $ANON";
+
+    setWalletStatus(
+      walletName(type) +
+      " connected · " +
+      short
+    );
+
+  }catch(error){
+
+    console.error(
+      "Wallet connection:",
+      error
+    );
+
+    setWalletStatus(
+      error?.message ||
+      "Wallet connection failed.",
+      true
+    );
+
+    closeWalletModal();
+  }
+}
+
+/* =========================================================
+   PRECISE SOL -> LAMPORTS
+========================================================= */
+
+function solToLamports(
+  rawValue
+){
+
+  const normalized =
+    String(
+      rawValue
+    )
+    .trim()
+    .replace(
+      ",",
+      "."
+    );
+
+  if(
+    !/^\d+(\.\d{0,9})?$/.test(
+      normalized
+    )
+  ){
+
+    throw new Error(
+      "Invalid SOL amount."
+    );
+  }
+
+  const [
+    whole,
+    decimal = ""
+  ] =
+    normalized.split(
+      "."
+    );
+
+  const fraction =
+    decimal
+      .padEnd(
+        9,
+        "0"
+      )
+      .slice(
+        0,
+        9
+      );
+
+  const lamports =
+    (
+      BigInt(whole) *
+      1_000_000_000n
+    ) +
+    BigInt(
+      fraction ||
+      "0"
+    );
+
+  if(
+    lamports <= 0n ||
+    lamports >
+    BigInt(
+      Number.MAX_SAFE_INTEGER
+    )
+  ){
+
+    throw new Error(
+      "Invalid or too large SOL amount."
+    );
+  }
+
+  return Number(
+    lamports
+  );
+}
+
+/* =========================================================
+   BUY TOKEN
+========================================================= */
+
+async function buyToken(){
+
+  if(
+    transactionInProgress
+  ){
+
+    return;
+  }
+
+  const raw =
+    String(
+      $("solAmount").value ||
+      ""
+    ).trim();
+
+  const sol =
+    Number(
+      raw
+    );
+
+  if(
+    !Number.isFinite(sol) ||
+    sol <= 0
+  ){
+
+    setWalletStatus(
+      "Enter a valid SOL amount.",
+      true
+    );
+
+    $("solAmount")
+      .focus();
+
+    return;
+  }
+
+  if(
+    sol < 0.001
+  ){
+
+    setWalletStatus(
+      "Minimum purchase is 0.001 SOL.",
+      true
+    );
+
+    return;
+  }
+
+  if(
+    sol >
+    PRESALE_TARGET_SOL
+  ){
+
+    setWalletStatus(
+      "Amount exceeds the configured presale target.",
+      true
+    );
+
+    return;
+  }
+
+  if(
+    !connectedProvider ||
+    !connectedPublicKey
+  ){
+
+    openWalletModal();
+
+    return;
+  }
+
+  if(
+    !ensureConnection()
+  ){
+
+    setWalletStatus(
+      "Solana Web3/RPC is unavailable. The page itself is still working.",
+      true
+    );
+
+    return;
+  }
+
+  transactionInProgress =
+    true;
+
+  $("buyButton")
+    .disabled =
+      true;
+
+  resetTxModal();
+
+  openTxModal();
+
+  try{
+
+    const lamports =
+      solToLamports(
+        raw
+      );
+
+    const recipient =
+      new window
+        .solanaWeb3
+        .PublicKey(
+          RECIPIENT_ADDRESS
+        );
+
+    const expectedTokens =
+      Math.floor(
+        sol *
+        TOKENS_PER_SOL
+      );
+
+    const transaction =
+      new window
+        .solanaWeb3
+        .Transaction();
+
+    transaction.add(
+
+      window
+        .solanaWeb3
+        .SystemProgram
+        .transfer(
+          {
+
+            fromPubkey:
+              connectedPublicKey,
+
+            toPubkey:
+              recipient,
+
+            lamports:
+              lamports
+          }
+        )
+    );
+
+    const latest =
+      await connection
+        .getLatestBlockhash(
+          "confirmed"
+        );
+
+    transaction.feePayer =
+      connectedPublicKey;
+
+    transaction.recentBlockhash =
+      latest.blockhash;
+
+    $("txTitle")
+      .textContent =
+        "Confirm transaction";
+
+    $("txMessage")
+      .textContent =
+        "Review the recipient and SOL amount in your wallet before approving.";
+
+    $("txDetails")
+      .style
+      .display =
+        "block";
+
+    $("txSolAmount")
+      .textContent =
+        sol.toLocaleString(
+          "en-US"
+        ) +
+        " SOL";
+
+    $("txTokenAmount")
+      .textContent =
+        expectedTokens
+          .toLocaleString(
+            "en-US"
+          ) +
+        " $ANON";
+
+    $("txRecipient")
+      .textContent =
+        RECIPIENT_ADDRESS;
+
+    let signature =
+      null;
+
+    if(
+      typeof connectedProvider
+        .signAndSendTransaction ===
+      "function"
+    ){
+
+      const result =
+        await connectedProvider
+          .signAndSendTransaction(
+            transaction
+          );
+
+      signature =
+        typeof result ===
+        "string"
+          ? result
+          : result?.signature;
+
+    }else if(
+      typeof connectedProvider
+        .signTransaction ===
+      "function"
+    ){
+
+      const signed =
+        await connectedProvider
+          .signTransaction(
+            transaction
+          );
+
+      signature =
+        await connection
+          .sendRawTransaction(
+            signed.serialize(),
+            {
+              skipPreflight:false,
+              maxRetries:3
+            }
+          );
+
+    }else{
+
+      throw new Error(
+        "This wallet does not provide a compatible Solana transaction signing method."
+      );
+    }
+
+    if(
+      !signature
+    ){
+
+      throw new Error(
+        "The wallet did not return a transaction signature."
+      );
+    }
+
+    $("txTitle")
+      .textContent =
+        "Transaction submitted";
+
+    $("txMessage")
+      .textContent =
+        "Waiting for Solana confirmation…";
+
+    const confirmation =
+      await connection
+        .confirmTransaction(
+          {
+
+            signature:
+              signature,
+
+            blockhash:
+              latest.blockhash,
+
+            lastValidBlockHeight:
+              latest.lastValidBlockHeight
+
+          },
+          "confirmed"
+        );
+
+    if(
+      confirmation?.value?.err
+    ){
+
+      throw new Error(
+        "The transaction failed on-chain."
+      );
+    }
+
+    $("txSpinner")
+      .style
+      .display =
+        "none";
+
+    $("successIcon")
+      .classList
+      .add(
+        "show"
+      );
+
+    $("txTitle")
+      .textContent =
+        "Payment confirmed";
+
+    $("txMessage")
+      .textContent =
+        "Your SOL payment has been confirmed on Solana.";
+
+    $("explorerLink")
+      .href =
+        "https://explorer.solana.com/tx/" +
+        encodeURIComponent(
+          signature
+        );
+
+    $("explorerLink")
+      .classList
+      .add(
+        "show"
+      );
+
+    $("txClose")
+      .style
+      .display =
+        "block";
+
+    /*
+      Refresh global presale progress.
+    */
+
+    setTimeout(
+      loadPresaleStats,
+      1000
+    );
+
+    setTimeout(
+      loadPresaleStats,
+      5000
+    );
+
+    setTimeout(
+      loadPresaleStats,
+      12000
+    );
+
+  }catch(error){
+
+    console.error(
+      "Transaction:",
+      error
+    );
+
+    $("txSpinner")
+      .style
+      .display =
+        "none";
+
+    $("successIcon")
+      .classList
+      .remove(
+        "show"
+      );
+
+    $("txTitle")
+      .textContent =
+        "Transaction not completed";
+
+    $("txMessage")
+      .textContent =
+        error?.message ||
+        "The transaction was cancelled or failed.";
+
+    $("txClose")
+      .style
+      .display =
+        "block";
+
+  }finally{
+
+    transactionInProgress =
+      false;
+
+    $("buyButton")
+      .disabled =
+        false;
+
+    $("buyButton")
+      .textContent =
+        connectedPublicKey
+          ? "Buy $ANON"
+          : "Connect Wallet & Buy";
+  }
+}
+
+/* =========================================================
+   SAFE EVENT SETUP
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    /*
+      Initial progress is always zero.
+    */
+
+    renderProgress(
+      0
+    );
+
+    updatePurchaseCalculation();
+
+    updateWalletAvailability();
+
+    $("solAmount")
+      .addEventListener(
+        "input",
+        updatePurchaseCalculation
+      );
+
+    $("headerWalletButton")
+      .addEventListener(
+        "click",
+        openWalletModal
+      );
+
+    $("heroConnectButton")
+      .addEventListener(
+        "click",
+        openWalletModal
+      );
+
+    $("buyButton")
+      .addEventListener(
+        "click",
+        buyToken
+      );
+
+    $("closeWalletButton")
+      .addEventListener(
+        "click",
+        closeWalletModal
+      );
+
+    $("txClose")
+      .addEventListener(
+        "click",
+        closeTxModal
+      );
+
+    document
+      .querySelectorAll(
+        ".wallet-option"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () =>
+              connectWallet(
+                button.dataset.wallet
+              )
+          );
+
+        }
+      );
+
+    $("walletModal")
+      .addEventListener(
+        "click",
+        event => {
+
+          if(
+            event.target ===
+            $("walletModal")
+          ){
+
+            closeWalletModal();
+          }
+
+        }
+      );
+
+    $("txModal")
+      .addEventListener(
+        "click",
+        event => {
+
+          if(
+            event.target ===
+            $("txModal")
+          ){
+
+            closeTxModal();
+          }
+
+        }
+      );
+
+    /*
+      Language placeholder.
+    */
+
+    let russian =
+      false;
+
+    $("languageBtn")
+      .addEventListener(
+        "click",
+        function(){
+
+          russian =
+            !russian;
+
+          this.textContent =
+            russian
+              ? "RU"
+              : "EN";
+
+        }
+      );
+
+    /*
+      Background particles.
+    */
+
+    const particleContainer =
+      $("particles");
+
+    const count =
+      window.innerWidth <
+      600
+        ? 28
+        : 62;
+
+    for(
+      let i = 0;
+      i < count;
+      i++
+    ){
+
+      const particle =
+        document.createElement(
+          "div"
+        );
+
+      particle.className =
+        "particle";
+
+      particle.style.left =
+        (
+          Math.random() *
+          100
+        ) +
+        "%";
+
+      particle.style.animationDuration =
+        (
+          8 +
+          Math.random() *
+          16
+        ) +
+        "s";
+
+      particle.style.animationDelay =
+        (
+          -Math.random() *
+          20
+        ) +
+        "s";
+
+      particle.style.opacity =
+        (
+          .12 +
+          Math.random() *
+          .48
+        );
+
+      particleContainer
+        .appendChild(
+          particle
+        );
+    }
+
+    /*
+      Missing backend does NOT crash page.
+    */
+
+    loadPresaleStats();
+
+    setInterval(
+      loadPresaleStats,
+      15000
+    );
+
+  }
+);
+
+window.addEventListener(
+  "focus",
+  () => {
+
+    setTimeout(
+      updateWalletAvailability,
+      250
+    );
+
+  }
+);
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
