@@ -5,32 +5,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ANON — Anonymous Token</title>
+<title>ANON // Anonymous Token</title>
 
-<meta name="description"
-content="ANON — decentralized community token built on Solana.">
+<meta
+  name="description"
+  content="ANON — Anonymous community token powered by Solana."
+>
 
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
-
 :root{
-  --black:#030303;
-  --black2:#080808;
-  --panel:#0c0c0c;
-  --white:#f4f4f4;
-  --gray:#8d8d8d;
-  --red:#ff2020;
-  --red2:#ff4545;
-  --line:rgba(255,255,255,.09);
-  --green:#4dff88;
+  --black:#020403;
+  --black2:#050806;
+  --panel:rgba(5,12,8,.78);
+  --green:#00ff66;
+  --green2:#00cc52;
+  --green3:#72ff9d;
+  --darkgreen:#06351b;
+  --white:#eafff0;
+  --muted:#6c8877;
+  --line:rgba(0,255,102,.16);
+  --red:#ff3158;
   --max:1200px;
 }
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
 html{
@@ -38,45 +39,43 @@ html{
 }
 
 body{
-  font-family:Inter,Arial,sans-serif;
   background:
-    radial-gradient(circle at 50% 0%,rgba(255,0,0,.09),transparent 32%),
-    #030303;
+    radial-gradient(circle at 50% 15%,rgba(0,255,102,.10),transparent 32%),
+    radial-gradient(circle at 10% 80%,rgba(0,255,102,.06),transparent 25%),
+    var(--black);
   color:var(--white);
+  font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
 }
 
-/* scanlines */
+/* MATRIX BACKGROUND */
 
-body::before{
-  content:"";
+#matrix{
   position:fixed;
   inset:0;
-  pointer-events:none;
-  z-index:9999;
+  width:100%;
+  height:100%;
   opacity:.13;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 3px,
-      rgba(255,255,255,.035) 4px
-    );
+  pointer-events:none;
+  z-index:-5;
 }
-
-/* grid */
 
 body::after{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:-1;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:70px 70px;
-  mask-image:linear-gradient(to bottom,black,transparent 90%);
+  z-index:999;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.015) 0,
+      rgba(255,255,255,.015) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode:overlay;
+  opacity:.35;
 }
 
 a{
@@ -93,17 +92,17 @@ button,input{
   margin:auto;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 header{
   position:fixed;
   top:0;
   left:0;
   width:100%;
-  z-index:1000;
-  background:rgba(3,3,3,.72);
-  backdrop-filter:blur(22px);
+  z-index:100;
   border-bottom:1px solid var(--line);
+  background:rgba(2,4,3,.72);
+  backdrop-filter:blur(18px);
 }
 
 .nav{
@@ -118,39 +117,30 @@ header{
   align-items:center;
   gap:12px;
   font-weight:900;
-  letter-spacing:1px;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
 .logo-icon{
-  width:38px;
-  height:38px;
+  width:40px;
+  height:40px;
   display:grid;
   place-items:center;
-  border:1px solid rgba(255,255,255,.25);
-  background:#090909;
-  font-family:"Space Mono",monospace;
-  font-size:18px;
+  border:1px solid var(--green);
+  background:#020803;
+  color:var(--green);
+  box-shadow:
+    0 0 15px rgba(0,255,102,.35),
+    inset 0 0 15px rgba(0,255,102,.08);
+  font-size:19px;
   position:relative;
-  overflow:hidden;
 }
 
 .logo-icon::after{
   content:"";
   position:absolute;
-  width:100%;
-  height:2px;
-  background:var(--red);
-  top:50%;
-  left:-100%;
-  animation:scan 2.5s linear infinite;
-}
-
-.logo-text{
-  font-size:15px;
-}
-
-.logo-text span{
-  color:var(--red);
+  inset:4px;
+  border:1px solid rgba(0,255,102,.2);
 }
 
 nav{
@@ -159,154 +149,95 @@ nav{
 }
 
 nav a{
-  font-family:"Space Mono",monospace;
-  font-size:12px;
-  color:#aaa;
+  color:#8ba996;
+  font-family:monospace;
+  font-size:13px;
   text-transform:uppercase;
-  transition:.25s;
+  transition:.2s;
 }
 
 nav a:hover{
-  color:#fff;
-  text-shadow:0 0 15px rgba(255,255,255,.5);
+  color:var(--green);
+  text-shadow:0 0 12px var(--green);
 }
 
-.nav-right{
+.actions{
   display:flex;
-  gap:10px;
   align-items:center;
+  gap:10px;
 }
 
 .lang{
-  background:transparent;
-  color:#aaa;
   border:1px solid var(--line);
-  padding:10px 13px;
+  background:#061009;
+  color:var(--green);
+  padding:10px 12px;
   cursor:pointer;
-  font-family:"Space Mono",monospace;
-  font-size:11px;
 }
 
-.wallet{
-  border:1px solid rgba(255,32,32,.55);
-  background:rgba(255,20,20,.08);
-  color:#fff;
-  padding:11px 17px;
+.connect{
+  border:1px solid var(--green);
+  background:rgba(0,255,102,.08);
+  color:var(--green);
+  padding:11px 16px;
   cursor:pointer;
   font-weight:800;
-  font-size:12px;
   text-transform:uppercase;
-  transition:.25s;
+  letter-spacing:1px;
+  box-shadow:0 0 20px rgba(0,255,102,.08);
+  transition:.2s;
 }
 
-.wallet:hover{
-  background:var(--red);
-  box-shadow:0 0 30px rgba(255,0,0,.35);
+.connect:hover{
+  background:var(--green);
+  color:#001508;
+  box-shadow:0 0 30px rgba(0,255,102,.4);
 }
 
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
   min-height:920px;
+  padding-top:150px;
   position:relative;
   display:flex;
   align-items:center;
-  overflow:hidden;
-  padding-top:100px;
-}
-
-.hero-bg{
-  position:absolute;
-  inset:0;
-  display:flex;
   justify-content:center;
-  align-items:center;
-  pointer-events:none;
-}
-
-.circle{
-  position:absolute;
-  width:650px;
-  height:650px;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:50%;
-  animation:rotate 35s linear infinite;
-}
-
-.circle::before{
-  content:"";
-  position:absolute;
-  width:7px;
-  height:7px;
-  background:var(--red);
-  border-radius:50%;
-  top:12%;
-  left:50%;
-  box-shadow:0 0 25px red;
-}
-
-.circle2{
-  width:450px;
-  height:450px;
-
-border-color:rgba(255,0,0,.08);
-  animation-direction:reverse;
-  animation-duration:22s;
 }
 
 .hero-content{
   text-align:center;
-  width:100%;
   position:relative;
   z-index:2;
 }
 
-.status{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:8px 14px;
-  border:1px solid rgba(77,255,136,.25);
-  background:rgba(77,255,136,.04);
-  color:#b5ffc9;
-  font-family:"Space Mono",monospace;
-  font-size:10px;
-  letter-spacing:1px;
-  margin-bottom:28px;
-  animation:fadeUp .8s both;
+.system{
+  color:var(--green);
+  font:12px monospace;
+  letter-spacing:3px;
+  margin-bottom:22px;
 }
 
-.status-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
+.system::before{
+  content:"[ ONLINE ] ";
+  color:var(--green3);
 }
 
 .hero h1{
-  font-size:clamp(58px,9vw,120px);
+  font-family:monospace;
+  font-size:clamp(52px,9vw,110px);
   line-height:.9;
   letter-spacing:-7px;
-  font-weight:900;
-  max-width:1050px;
-  margin:auto;
-  animation:fadeUp .9s both;
-}
-
-.hero h1 .line{
-  display:block;
-}
-
-.red{
-  color:var(--red);
+  text-transform:uppercase;
   text-shadow:
-    0 0 30px rgba(255,0,0,.25);
+    0 0 12px rgba(0,255,102,.35),
+    0 0 60px rgba(0,255,102,.08);
 }
 
 .glitch{
   position:relative;
   display:inline-block;
+  color:var(--white);
 }
 
 .glitch::before,
@@ -315,1057 +246,324 @@ border-color:rgba(255,0,0,.08);
   position:absolute;
   left:0;
   top:0;
-  opacity:.55;
-  pointer-events:none;
+  width:100%;
+  overflow:hidden;
+  opacity:.7;
 }
 
 .glitch::before{
-  color:#ff0000;
-  transform:translate(2px,0);
-  clip-path:inset(0 0 55% 0);
-  animation:glitch1 3s infinite;
+  color:#00ff66;
+  transform:translate(3px,0);
+  clip-path:inset(20% 0 55% 0);
+
+animation:glitch1 3s infinite linear alternate-reverse;
 }
 
 .glitch::after{
-  color:#00ffff;
-  transform:translate(-2px,0);
-  clip-path:inset(55% 0 0 0);
-  animation:glitch2 2.5s infinite;
+  color:#ffffff;
+  transform:translate(-3px,0);
+  clip-path:inset(60% 0 10% 0);
+  animation:glitch2 2.2s infinite linear alternate-reverse;
 }
 
-.hero-sub{
-  max-width:680px;
-  margin:35px auto 0;
-  color:#929292;
-  line-height:1.8;
-  font-size:16px;
-  animation:fadeUp 1.1s both;
+.hero-green{
+  color:var(--green);
+  display:block;
+}
+
+.hero-description{
+  max-width:700px;
+  margin:30px auto;
+  color:#789384;
+  font:16px/1.8 monospace;
 }
 
 .hero-buttons{
-  margin-top:35px;
   display:flex;
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  animation:fadeUp 1.2s both;
+  margin-top:30px;
 }
 
 .btn{
   padding:16px 25px;
-  border:1px solid var(--line);
-  background:#0b0b0b;
-  color:#fff;
   cursor:pointer;
-  font-weight:800;
+  font-weight:900;
   text-transform:uppercase;
-  font-size:12px;
-  letter-spacing:.5px;
-  transition:.25s;
+  letter-spacing:1px;
+  transition:.2s;
 }
 
 .btn-primary{
-  background:var(--red);
-  border-color:var(--red);
-  box-shadow:0 0 35px rgba(255,0,0,.18);
+  border:1px solid var(--green);
+  background:var(--green);
+  color:#001508;
+  box-shadow:0 0 30px rgba(0,255,102,.2);
 }
 
 .btn-primary:hover{
-  background:#ff3b3b;
-  transform:translateY(-3px);
-  box-shadow:0 0 50px rgba(255,0,0,.35);
+  box-shadow:0 0 45px rgba(0,255,102,.5);
+  transform:translateY(-2px);
 }
 
-.btn-secondary:hover{
-  border-color:#777;
-  transform:translateY(-3px);
-}
-
-/* terminal */
-
-.terminal{
-  margin:75px auto 0;
-  max-width:650px;
+.btn-secondary{
   border:1px solid var(--line);
-  background:rgba(5,5,5,.8);
-  text-align:left;
-  font-family:"Space Mono",monospace;
-  box-shadow:0 30px 100px rgba(0,0,0,.7);
-  animation:fadeUp 1.4s both;
-}
-
-.terminal-head{
-  padding:11px 15px;
-  border-bottom:1px solid var(--line);
-  color:#555;
-  font-size:10px;
-}
-
-.terminal-body{
-  padding:20px;
-  color:#777;
-  font-size:11px;
-  line-height:2;
-}
-
-.terminal-body .success{
+  background:rgba(0,255,102,.04);
   color:var(--green);
 }
 
-.terminal-body .redline{
-  color:var(--red);
+.btn-secondary:hover{
+  background:rgba(0,255,102,.1);
 }
 
-/* ================= PRESALE ================= */
+/* MASK */
 
-.presale-wrap{
-  margin-top:-80px;
-  position:relative;
-  z-index:5;
+.mask-stage{
+  position:absolute;
+  width:600px;
+  height:600px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  opacity:.10;
+  pointer-events:none;
+  z-index:-1;
 }
+
+.mask{
+  position:absolute;
+  width:370px;
+  height:420px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border:3px solid var(--green);
+  border-radius:47% 47% 43% 43%;
+  box-shadow:
+    0 0 30px rgba(0,255,102,.35),
+    inset 0 0 60px rgba(0,255,102,.07);
+}
+
+.mask::before{
+  content:"";
+  position:absolute;
+  left:70px;
+  right:70px;
+  top:125px;
+  height:42px;
+  border-top:3px solid var(--green);
+  border-bottom:3px solid var(--green);
+  transform:skewY(-4deg);
+  box-shadow:0 0 18px rgba(0,255,102,.3);
+}
+
+.eye{
+  position:absolute;
+  top:140px;
+  width:85px;
+  height:28px;
+  border-top:3px solid var(--green);
+  transform:rotate(-7deg);
+}
+
+.eye.left{
+  left:58px;
+}
+
+.eye.right{
+  right:58px;
+  transform:rotate(7deg);
+}
+
+.nose{
+  position:absolute;
+  top:185px;
+  left:50%;
+  width:25px;
+  height:45px;
+  border-left:3px solid var(--green);
+  border-bottom:3px solid var(--green);
+  transform:translateX(-50%) rotate(-8deg);
+}
+
+.mustache{
+  position:absolute;
+  top:260px;
+  left:50%;
+  width:190px;
+  height:45px;
+  transform:translateX(-50%);
+  border-bottom:4px solid var(--green);
+  border-radius:0 0 50% 50%;
+}
+
+.mouth{
+  position:absolute;
+  top:330px;
+  left:50%;
+  width:115px;
+  height:35px;
+  transform:translateX(-50%);
+  border-top:3px solid var(--green);
+  border-radius:50%;
+}
+
+/* TERMINAL */
+
+.terminal{
+  width:min(900px,100%);
+  margin:70px auto 0;
+  border:1px solid var(--line);
+  background:rgba(1,6,3,.86);
+  box-shadow:
+    0 0 50px rgba(0,255,102,.08),
+    inset 0 0 40px rgba(0,255,102,.025);
+  text-align:left;
+  font:13px/1.8 monospace;
+}
+
+.terminal-top{
+  height:38px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 13px;
+  border-bottom:1px solid var(--line);
+  color:#587261;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#173a25;
+}
+
+.terminal-body{
+  padding:18px;
+  color:#659477;
+}
+
+.terminal-line{
+  margin:5px 0;
+}
+
+.terminal-line span{
+  color:var(--green);
+}
+
+.cursor{
+  display:inline-block;
+  width:7px;
+  height:14px;
+  background:var(--green);
+  vertical-align:-2px;
+  animation:blink 1s infinite;
+}
+
+/* PANELS */
+
+.section{
+  padding:120px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:55px;
+}
+
+.section-title .small{
+  color:var(--green);
+  font:12px monospace;
+  letter-spacing:3px;
+}
+
+.section-title h2{
+  margin-top:12px;
+  font:900 clamp(34px,5vw,62px)/1 monospace;
+  text-transform:uppercase;
+}
+
+.section-title p{
+  max-width:650px;
+  margin:18px auto 0;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* PRESALE */
 
 .presale{
-  border:1px solid rgba(255,255,255,.12);
-  background:
-    linear-gradient(120deg,rgba(255,0,0,.05),transparent 40%),
-    #090909;
+  border:1px solid var(--line);
+  background:linear-gradient(
+    135deg,
+    rgba(0,255,102,.06),
+    rgba(0,0,0,.75)
+  );
   padding:32px;
-  box-shadow:0 40px 120px rgba(0,0,0,.6);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
 }
 
-.presale-top{
+.presale::before{
+  content:"ACCESS_GRANTED";
+  position:absolute;
+  top:15px;
+  right:20px;
+  color:rgba(0,255,102,.
+
+2);
+  font:10px monospace;
+}
+
+.presale-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:20px;
-  margin-bottom:28px;
+  margin-bottom:25px;
 }
 
-.presale-title{
-  font-size:23px;
-  font-weight:900;
+.presale-head h3{
+  font:700 24px monospace;
 }
 
 .live{
   color:var(--green);
-  font-family:"Space Mono",monospace;
-  font-size:10px;
+  font:12px monospace;
 }
 
-.progress-label{
+.live::before{
+  content:"●";
+  margin-right:7px;
+  animation:blink 1s infinite;
+}
+
+.progress-info{
   display:flex;
   justify-content:space-between;
-  color:#777;
-  font-size:11px;
-  font-family:"Space Mono",monospace;
+  color:#668171;
+  font:12px monospace;
   margin-bottom:10px;
 }
 
 .progress{
-  height:5px;
-  background:#1a1a1a;
+  height:12px;
+  border:1px solid var(--line);
+  background:#020703;
   overflow:hidden;
 }
 
 .progress-bar{
   width:38%;
   height:100%;
-  background:linear-gradient(90deg,#ff0000,#ff5b5b);
-  box-shadow:0 0 20px red;
-  animation:progressGlow 2s infinite;
+  background:var(--green);
+  box-shadow:0 0 20px var(--green);
+  animation:pulsebar 2s infinite alternate;
 }
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:25px;
-}
-
-.stat{
-  padding:17px;
-  border:1px solid var(--line);
-  background:#0d0d0d;
-}
-
-.stat span{
-  display:block;
-  color:#666;
-  font-family:"Space Mono",monospace;
-  font-size:9px;
-  text-transform:uppercase;
-  margin-bottom:8px;
-}
-
-.stat strong{
-  font-size:16px;
-}
-
-/* ================= SECTIONS ================= */
-
-section.content{
-  padding:140px 0;
-}
-
-.heading{
-  text-align:center;
-  margin-bottom:60px;
-}
-
-.heading-label{
-  font-family:"Space Mono",monospace;
-  color:var(--red);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:3px;
-}
-
-.heading h2{
-  margin-top:14px;
-  font-size:clamp(38px,5vw,65px);
-  letter-spacing:-3px;
-}
-
-.heading p{
-  max-width:650px;
-  margin:20px auto 0;
-  color:#777;
-  line-height:1.7;
-}
-
-/* ================= CARDS ================= */
-
-.card{
-  border:1px solid var(--line);
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.025),transparent),
-    #090909;
-  box-shadow:0 30px 80px rgba(0,0,0,.3);
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--red),transparent);
-  opacity:.5;
-}
-
-/* ================= TOKENOMICS ================= */
-
-.token-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-.allocations{
-  padding:28px;
-}
-
-.allocation{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.allocation:last-child{
-  border-bottom:0;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  background:var(--red);
-  box-shadow:0 0 14px red;
-}
-
-.alloc-name{
-  flex:1;
-}
-
-.alloc-name strong{
-  display:block;
-  font-size:14px;
-}
-
-.alloc-name small{
-  color:#666;
-  display:block;
-  margin-top:4px;
-  font-size:11px;
-}
-
-.percent{
-  font-family:"Space Mono",monospace;
-  color:#fff;
-  font-size:13px;
-}
-
-.supply{
-  min-height:370px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-
-.supply-number{
-  font-size:clamp(70px,9vw,120px);
-  font-weight:900;
-  letter-spacing:-7px;
-}
-
-.supply-number span{
-  color:var(--red);
-}
-
-.supply-label{
-  color:#666;
-  font-family:"Space Mono",monospace;
-  font-size:11px;
-}
-
-/* ================= ROADMAP ================= */
-
-.roadmap{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.roadmap-card{
-  padding:30px;
-  min-height:300px;
-}
-
-.phase{
-  color:var(--red);
-  font-family:"Space Mono",monospace;
-  font-size:10px;
-  letter-spacing:2px;
-}
-
-.roadmap-card h3{
-  font-size:28px;
-  margin:14px 0;
-}
-
-.roadmap-card p{
-  color:#666;
-  line-height:1.7;
-  font-size:13px;
-}
-
-.roadmap-card ul{
-  list-style:none;
-  margin-top:20px;
-}
-
-.roadmap-card li{
-  color:#aaa;
-  font-size:12px;
-  margin:11px 0;
-}
-
-.roadmap-card li::before{
-  content:"//";
-  color:var(--red);
-  font-family:"Space Mono",monospace;
-  margin-right:8px;
-}
-
-/* ================= BUY ================= */
-
-.buy-box{
-  max-width:700px;
-  margin:auto;
-  padding:35px;
-}
-
-.buy-box h3{
-  font-size:28px;
-}
-
-.buy-box>p{
-  color:#666;
-  margin:10px 0 25px;
-  font-size:13px;
-}
-
-.input{
-  margin-bottom:15px;
-}
-
-.input label{
-  display:block;
-  color:#777;
-  font-family:"Space Mono",monospace;
-  font-size:9px;
-  text-transform:uppercase;
-  margin-bottom:8px;
-}
-
-.input-wrap{
-  display:flex;
-  align-items:center;
-  border:1px solid var(--line);
-  background:#050505;
-}
-
-.input-wrap input{
-  width:100%;
-  padding:16px;
-  background:transparent;
-  color:white;
-  border:0;
-  outline:0;
-}
-
-.symbol{
-  padding:0 16px;
-  color:var(--red);
-  font-family:"Space Mono",monospace;
-  font-size:11px;
-}
-
-.buy-button{
-  width:100%;
-  padding:17px;
-  border:0;
-  background:var(--red);
-  color:#fff;
-  font-weight:900;
-  text-transform:uppercase;
-  cursor:pointer;
-  margin-top:5px;
-  transition:.25s;
-}
-
-.buy-button:hover{
-  box-shadow:0 0 40px rgba(255,0,0,.3);
-}
-
-/* ================= FAQ ================= */
-
-.faq{
-  max-width:850px;
-  margin:auto;
-}
-
-details{
-  border:1px solid var(--line);
-  background:#090909;
-  margin-bottom:10px;
-}
-
-summary{
-  cursor:pointer;
-  padding:22px;
-  font-weight:700;
-  list-style:none;
-}
-
-summary::-webkit-details-marker{
-  display:none;
-}
-
-details p{
-  padding:0 22px 22px;
-  color:#666;
-  line-height:1.7;
-  font-size:13px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-
-border-top:1px solid var(--line);
-  padding:45px 0;
-}
-
-.footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  color:#555;
-  font-family:"Space Mono",monospace;
-  font-size:10px;
-}
-
-.socials{
-  display:flex;
-  gap:20px;
-}
-
-.socials a:hover{
-  color:#fff;
-}
-
-/* ================= MODAL ================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(12px);
-  padding:20px;
-}
-
-.modal.active{
-  display:flex;
-}
-
-.modal-box{
-  width:min(430px,100%);
-  padding:35px;
-  background:#080808;
-  border:1px solid rgba(255,0,0,.3);
-  text-align:center;
-  box-shadow:0 0 100px rgba(255,0,0,.1);
-}
-
-.modal-icon{
-  font-size:50px;
-  margin-bottom:15px;
-  filter:grayscale(1);
-}
-
-.modal-box h3{
-  font-size:25px;
-  margin-bottom:10px;
-}
-
-.modal-box p{
-  color:#666;
-  line-height:1.7;
-  font-size:13px;
-  margin-bottom:25px;
-}
-
-.close{
-  width:100%;
-  padding:14px;
-  background:#111;
-  border:1px solid var(--line);
-  color:white;
-  cursor:pointer;
-}
-
-/* ================= ANIMATIONS ================= */
-
-@keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(25px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes rotate{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
-}
-
-@keyframes scan{
-  from{left:-100%}
-  to{left:100%}
-}
-
-@keyframes glitch1{
-  0%,90%,100%{transform:translate(0)}
-  92%{transform:translate(4px,-2px)}
-  94%{transform:translate(-3px,2px)}
-}
-
-@keyframes glitch2{
-  0%,85%,100%{transform:translate(0)}
-  87%{transform:translate(-4px,2px)}
-  89%{transform:translate(3px,-2px)}
-}
-
-@keyframes progressGlow{
-  0%,100%{opacity:.8}
-  50%{opacity:1}
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:850px){
-
-  nav{
-    display:none;
-  }
-
-  .hero{
-    min-height:820px;
-  }
-
-  .circle{
-    width:480px;
-    height:480px;
-  }
-
-  .circle2{
-    width:330px;
-    height:330px;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .token-grid,
-  .roadmap{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:600px){
-
-  .container{
-    width:calc(100% - 25px);
-  }
-
-  .nav{
-    height:70px;
-  }
-
-  .logo-text{
-    font-size:12px;
-  }
-
-  .wallet{
-    padding:9px 10px;
-    font-size:9px;
-  }
-
-  .hero{
-    padding-top:120px;
-    min-height:760px;
-  }
-
-  .hero h1{
-    font-size:55px;
-    letter-spacing:-4px;
-  }
-
-  .hero-sub{
-    font-size:14px;
-  }
-
-  .terminal{
-    margin-top:55px;
-  }
-
-  .presale{
-    padding:22px;
-  }
-
-  .presale-top{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  section.content{
-    padding:95px 0;
-  }
-
-  .footer{
-    flex-direction:column;
-    gap:20px;
-  }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- HEADER -->
-
-<header>
-
-<div class="container nav">
-
-<a href="#home" class="logo">
-
-<div class="logo-icon">A</div>
-
-<div class="logo-text">
-ANON<span>.</span>
-</div>
-
-</a>
-
-<nav>
-
-<a href="#home">Home</a>
-<a href="#presale">Presale</a>
-<a href="#tokenomics">Tokenomics</a>
-<a href="#roadmap">Roadmap</a>
-<a href="#faq">FAQ</a>
-
-</nav>
-
-<div class="nav-right">
-
-<button class="lang" id="languageBtn">
-EN
-</button>
-
-<button class="wallet" onclick="openWalletModal()">
-Connect Wallet
-</button>
-
-</div>
-
-</div>
-
-</header>
-
-
-<!-- HERO -->
-
-<main id="home">
-
-<section class="hero">
-
-<div class="hero-bg">
-
-<div class="circle"></div>
-<div class="circle circle2"></div>
-
-</div>
-
-<div class="container hero-content">
-
-<div class="status">
-
-<span class="status-dot"></span>
-
-NETWORK ONLINE
-
-</div>
-
-<h1>
-
-<span class="line">
-WE ARE
-</span>
-
-<span
-class="line red glitch"
-data-text="ANONYMOUS"
->
-ANONYMOUS
-</span>
-
-</h1>
-
-<p class="hero-sub">
-
-A new generation of community-driven crypto.
-Built on Solana.
-Powered by the people.
-No borders. No limits.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="#presale" class="btn btn-primary">
-Enter Presale
-</a>
-
-<button class="btn btn-secondary"
-onclick="openWalletModal()">
-Connect Wallet
-</button>
-
-</div>
-
-
-<div class="terminal">
-
-<div class="terminal-head">
-ANON_TERMINAL // SECURE CONNECTION
-</div>
-
-<div class="terminal-body">
-
-<div>
-<span class="redline">[SYSTEM]</span>
- Initializing network...
-</div>
-
-<div>
-<span class="success">[OK]</span>
- Solana connection detected
-</div>
-
-<div>
-<span class="success">[OK]</span>
- Anonymous protocol online
-</div>
-
-<div>
-<span class="redline">[ANON]</span>
- Identity: UNKNOWN
-</div>
-
-<div>
-<span class="redline">[ANON]</span>
- Status: ACTIVE_
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PRESALE -->
-
-<section id="presale" class="presale-wrap">
-
-<div class="container">
-
-<div class="presale">
-
-<div class="presale-top">
-
-<div>
-
-<div class="presale-title">
-ANON PRESALE
-</div>
-
-<div style="color:#555;margin-top:7px;font-size:12px;">
-EARLY ACCESS // COMMUNITY ROUND
-</div>
-
-</div>
-
-<div class="live">
-● PRESALE LIVE
-</div>
-
-</div>
-
-<div class="progress-label">
-
-<span>
-PROGRESS 38%
-</span>
-
-<span>
-TARGET 40%
-</span>
-
-</div>
-
-<div class="progress">
-<div class="progress-bar"></div>
-</div>
-
-<div class="stats">
-
-<div class="stat">
-<span>Total Supply</span>
-<strong>10B ANON</strong>
-</div>
-
-<div class="stat">
-<span>Presale</span>
-<strong>4B ANON</strong>
-</div>
-
-<div class="stat">
-<span>Network</span>
-<strong>Solana</strong>
-</div>
-
-<div class="stat">
-<span>Currency</span>
-<strong>SOL</strong>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TOKENOMICS -->
-
-<section id="tokenomics" class="content">
-
-<div class="container">
-
-<div class="heading">
-
-<div class="heading-label">
-/ TOKENOMICS
-</div>
-
-<h2>
-THE NUMBERS.
-</h2>
-
-<p>
-Transparent allocation. Community first.
-Designed for long-term ecosystem growth.
-</p>
-
-</div>
-
-<div class="token-grid">
-
-<div class="card allocations">
-
-<div class="allocation">
-
-<div class="dot"></div>
-
-<div class="alloc-name">
-<strong>Presale</strong>
-<small>Early community allocation</small>
-</div>
-
-<div class="percent">40%</div>
-
-</div>
-
-<div class="allocation">
-
-<div class="dot"></div>
-
-<div class="alloc-name">
-<strong>Marketing</strong>
-<small>Growth & campaigns</small>
-</div>
-
-<div class="percent">10%</div>
-
-</div>
-
-<div class="allocation">
-
-<div class="dot"></div>
-
-<div class="alloc-name">
-<strong>Team</strong>
-<small>Development & operations</small>
-</div>
-
-<div class="percent">15%</div>
-
-</div>
-
-<div class="allocation">
-
-<div class="dot"></div>
-
-<div class="alloc-name">
-<strong>Liquidity</strong>
-<small>DEX liquidity</small>
-</div>
-
-<div class="percent">15%</div>
-
-</div>
-
-<div class="allocation">
-
-<div class="dot"></div>
-
-<div class="alloc-name">
-<strong>Community</strong>
-<small>Rewards & ecosystem</small>
-</div>
-
-<div class="percent">20%</div>
-
-</div>
-
-</div>
-
-
-<div class="card supply">
-
-<div class="supply-number">
-10<span>B</span>
-</div>
-
-<div class="supply-label">
-TOTAL ANON SUPPLY
-</div>
-
-<div style="margin-top:25px;color:#444;font-family:'Space Mono';font-size:10px;">
-SOLANA NETWORK
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- BUY -->
-
-<section class="content">
-
-<div class="container">
-
-<div class="heading">
-
-<div class="heading-label">
-/ PRESALE
-</div>
-
-<h2>
-ACQUIRE ANON.
-</h2>
-
-<p>
-Connect your Solana wallet and enter your contribution.
-</p>
-
-</div>
-
-<div class="card buy-box">
-
-<h3>
-Buy $ANON
-</h3>
-
-<p>
-Pres
+  grid-template-columns:repeat(4,1
